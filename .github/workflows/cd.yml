@@ -3,18 +3,20 @@
 
 name: CD
 
-on:    
-  workflow_run:
-    workflows: ["CI"]
-    types:
-      - completed
-    branches:
-      - ci-cd-practice
-  workflow_dispatch:
+on:  
+    workflow_call: 
+
+#   workflow_run:
+#     workflows: ["CI"]
+#     types:
+#       - completed
+#     branches:
+#       - ci-cd-practice
+#   workflow_dispatch:
 
 jobs:
   deploy:
-    if: ${{ github.event.workflow_run.conclusion == 'success' }}
+#    if: ${{ github.event.workflow_run.conclusion == 'success' }}
     runs-on: self-hosted
     steps:
       - name: Checkout code

@@ -93,27 +93,9 @@ jobs:
 
 
         
-#   build:
-#     runs-on: ubuntu-latest
-#     steps:
-#       - uses: actions/checkout@v3
+    deploy: 
+      needs: [frontend, backend]
+      uses: ./.github/workflows/cd.yml  
+      secrets: inherit            
 
-#       - name: Set up Node.js
-#         uses: actions/setup-node@v3
-#         with:
-#           node-version: '18'
-
-#       - name: Install dependencies
-#         run: npm install
-
-#       - name: Lint code
-#         run: npm run lint
-
-#       - name: Build code
-#         run: npm run build
-
-#       - name: Run tests
-#         run: npm test
-
-#       
-          
+      
