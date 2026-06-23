@@ -45,9 +45,10 @@ jobs:
             - name: Build and push Docker image
               uses: docker/build-push-action@v7
               with:
-                context: ./frontend/Dockerfile.multistage
+                context: ./frontend
+                file: ./frontend/Dockerfile.multistage
                 push: true
-                tags: ${{ secrets.DOCKER_USERNAME }}/devboard-frontend:latest
+                tags: ${{ vars.DOCKER_USERNAME }}/devboard-frontend:latest
 
 
     # backend:
