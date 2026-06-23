@@ -36,16 +36,16 @@ jobs:
               run: npm run test
               working-directory: frontend
 
-            - Test
-            - Push to DockerHub
+    #         - Test
+    #         - Push to DockerHub
 
 
-    backend:
-        steps:
-            - Lint
-            - Build
-            - Test
-            - Push to DockerHub
+    # backend:
+    #     steps:
+    #         - Lint
+    #         - Build
+    #         - Test
+    #         - Push to DockerHub
 
         
 #   build:
