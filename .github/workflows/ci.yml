@@ -25,14 +25,16 @@ jobs:
                 cache-dependency-path: frontend/package-lock.json
 
             - name: Install npm packages
-              run: npm install --prefix frontend
+              run: npm install
+              working-directory: frontend
             
             - name: Run Lint
-              run: npm run lint
+              run: npm run lintz
+              working-directory: frontend
 
             - name: Run Tests
               run: npm run test
-
+              working-directory: frontend
 
             - Test
             - Push to DockerHub
