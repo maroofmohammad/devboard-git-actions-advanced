@@ -36,8 +36,18 @@ jobs:
               run: npm run test
               working-directory: frontend
 
-    #         - Test
-    #         - Push to DockerHub
+            - name: Log in to DockerHub
+              uses: docker/login-action@v4
+              with:
+                username: ${{ secrets.DOCKER_USERNAME }}
+                password: ${{ secrets.DOCKER_PASSWORD }}
+
+            - name: Build and push Docker image
+              uses: docker/build-push-action@v7
+              with:
+                context: ./frontend/Dockerfile.multistage
+                push: true
+                tags: ${{ secrets.DOCKER_USERNAME }}/devboard-frontend:latest
 
 
     # backend:
@@ -70,14 +80,5 @@ jobs:
 #       - name: Run tests
 #         run: npm test
 
-#       - name: Log in to DockerHub
-#         uses: docker/login-action@v2
-#         with:
-#           username: ${{ secrets.DOCKER_USERNAME }}
-#           password: ${{ secrets.DOCKER_PASSWORD }}
-
-#       - name: Build and push Docker image
-#         run: |
-#           docker build -t your-dockerhub-username/your-image-name .
-#           docker push your-dockerhub-username/your-image-name 
+#       
           
