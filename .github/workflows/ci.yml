@@ -1,0 +1,79 @@
+# Goal - I have to Lint, Build, Test the code for Frontend and Backend
+# Then push the images to DockerHub
+
+name: CI
+
+on:
+  push:
+    branches: [main]
+
+jobs:
+
+    frontend:
+        runs-on: ubuntu-latest
+
+        steps:
+            - name: Checkout code
+              uses: actions/checkout@v7
+
+            - name: Set up Node.js
+              uses: actions/setup-node@v6
+              with:
+                node-version: '20'
+                cache: npm
+                cache-dependency-path: frontend/package-lock.json
+
+            - name: Install npm packages
+              run: npm ci
+            
+            - name: Run Lint
+              run: npm run lint
+
+            - name: Run Tests
+              run: npm run test
+
+
+            - Test
+            - Push to DockerHub
+
+
+    backend:
+        steps:
+            - Lint
+            - Build
+            - Test
+            - Push to DockerHub
+
+        
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+
+      - name: Set up Node.js
+        uses: actions/setup-node@v3
+        with:
+          node-version: '18'
+
+      - name: Install dependencies
+        run: npm install
+
+      - name: Lint code
+        run: npm run lint
+
+      - name: Build code
+        run: npm run build
+
+      - name: Run tests
+        run: npm test
+
+      - name: Log in to DockerHub
+        uses: docker/login-action@v2
+        with:
+          username: ${{ secrets.DOCKER_USERNAME }}
+          password: ${{ secrets.DOCKER_PASSWORD }}
+
+      - name: Build and push Docker image
+        run: |
+          docker build -t your-dockerhub-username/your-image-name .
+          docker push your-dockerhub-username/your-image-name
