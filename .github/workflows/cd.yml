@@ -1,0 +1,34 @@
+# # Goal : To deploy the built images to the server from CI steps once the CI workflow is successful.
+
+
+# name: CD
+
+# on:
+#   workflow_run:
+#     workflows: ["CI"]
+#     types:
+#       - completed
+#     branches:
+#       - ci-cd-practice
+
+# jobs:
+#   deploy:
+#     runs-on: self-hosted
+#     steps:
+#       - name: Checkout code
+#         uses: actions/checkout@v7
+
+#       - name: Copy example env to main env
+#         run: cp .env.example .env
+
+#       - name: Docker login to DockerHub
+#         uses: docker/login-action@v4
+#         with:
+#           username: ${{ vars.DOCKERHUB_USERNAME }}
+#           password: ${{ secrets.DOCKERHUB_TOKEN }}
+
+#       - name: Deploy the containers using docker-compose
+#         run: |
+#           docker pull ${{ vars.DOCKERHUB_USERNAME }}/devboard-frontend:latest
+#           docker pull ${{ vars.DOCKERHUB_USERNAME }}/devboard-backend:latest
+#           docker-compose -f docker-compose.prod.yml up -d --build
