@@ -1,37 +1,37 @@
-# # Goal : To deploy the built images to the server from CI steps once the CI workflow is successful.
+# # # Goal : To deploy the built images to the server from CI steps once the CI workflow is successful.
 
 
-name: CD
+# name: CD
 
-on:  
-    workflow_call: 
+# on:  
+#     workflow_call: 
 
-#   workflow_run:
-#     workflows: ["CI"]
-#     types:
-#       - completed
-#     branches:
-#       - ci-cd-practice
-#   workflow_dispatch:
+# #   workflow_run:
+# #     workflows: ["CI"]
+# #     types:
+# #       - completed
+# #     branches:
+# #       - ci-cd-practice
+# #   workflow_dispatch:
 
-jobs:
-  deploy:
-#    if: ${{ github.event.workflow_run.conclusion == 'success' }}
-    runs-on: self-hosted
-    steps:
-      - name: Checkout code
-        uses: actions/checkout@v7
+# jobs:
+#   deploy:
+# #    if: ${{ github.event.workflow_run.conclusion == 'success' }}
+#     runs-on: self-hosted
+#     steps:
+#       - name: Checkout code
+#         uses: actions/checkout@v7
 
-      - name: Copy example env to main env
-        run: cp .env.example .env
+#       - name: Copy example env to main env
+#         run: cp .env.example .env
 
-      - name: Docker login to DockerHub
-        uses: docker/login-action@v4
-        with:
-          username: ${{ vars.DOCKERHUB_USERNAME }}
-          password: ${{ secrets.DOCKERHUB_TOKEN }}
+#       - name: Docker login to DockerHub
+#         uses: docker/login-action@v4
+#         with:
+#           username: ${{ vars.DOCKERHUB_USERNAME }}
+#           password: ${{ secrets.DOCKERHUB_TOKEN }}
 
-      - name: Deploy the containers using docker-compose
-        run: |
-          docker compose pull
-          docker compose up -d
+#       - name: Deploy the containers using docker-compose
+#         run: |
+#           docker compose pull
+#           docker compose up -d
